@@ -2,6 +2,7 @@
 "use client";
 import { useAppDispatch, useAppSelector } from '@/app/redux';
 import { setIsSidebarCollapsed } from '@/app/state';
+import { useGetProjectsQuery } from '@/app/state/api';
 import { AlertCircle, AlertOctagon, AlertTriangle, Briefcase, ChevronDown, ChevronUp, Home, Layers3, LockIcon, LucideIcon, Menu, Search, Settings, ShieldAlert, User, Users, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,6 +14,7 @@ const Sidebar = () => {
   const [showPriority, setShowPriority] = useState(true);
   const dispatch=useAppDispatch();
   const isSidebarCollapsed=useAppSelector((state)=>state.global.isSidebarCollapsed);
+  const { data:projects }=useGetProjectsQuery();
  const sidebarClassNames = `fixed flex flex-col h-[100%] no-scrollbar justify-between shadow-xl
     transition-all duration-300 z-40 dark:bg-black overflow-y-auto bg-white
     ${isSidebarCollapsed?"w-0 hidden":"w-84"}`
@@ -62,6 +64,10 @@ const Sidebar = () => {
               )}
              
            </button>
+           {showProjects &&
+              projects?.map((project)=>(
+                <SidebarLink key={project.id} icon={Briefcase} label={project.name} href={`/projects/${project.id}`}/>
+              ))}
            <button onClick={()=>setShowPriority((prev)=>!prev)} className='flex items-center justify-between px-8 py-4 w-full dark:border-gray-700 dark:text-gray-200'>
               <span className='font-bold'>Priorities</span>
               {showPriority ? (
