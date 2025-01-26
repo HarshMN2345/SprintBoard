@@ -16,6 +16,7 @@ const Header = ({
         <h1 className={`${isSmallText?"tet-lg":"text-2xl"} font-bold dark:text-white`}>
             {name}
         </h1>
+        <span>{buttonComponent}</span>
     </div>
   )
 }
