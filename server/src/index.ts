@@ -7,6 +7,8 @@ import morgan from "morgan"
 import { dot } from "node:test/reporters"
 import projectRoutes from "./routes/projectRoutes"
 import taskRoutes from "./routes/taskRoutes"
+import searchRoutes from "./routes/searchRoutes"
+import userRoutes from "./routes/userRoutes"
 
 dotenv.config()
 const app=express();
@@ -23,6 +25,8 @@ app.get("/", (req, res) => {
 })
 app.use("/projects",projectRoutes)
 app.use("/tasks",taskRoutes)
+app.use("/search",searchRoutes)
+app.use("/users",userRoutes)
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)

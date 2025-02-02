@@ -31,6 +31,11 @@ export enum Status {
     UnderReview = "Under Review",
     Completed = "Completed",
 }
+export interface SearchResults {
+    tasks?: Task[];
+    projects?: Project[];
+    users?: User[];
+  }
   
 export interface Project{
     id:number;
@@ -39,6 +44,13 @@ export interface Project{
     startDate?:string;
     endDate?:string;
 }
+export interface Attachment {
+    id: number;
+    fileURL: string;
+    fileName: string;
+    taskId: number;
+    uploadedById: number;
+  }
 export interface Task{
     id:number;
     title:string;
@@ -59,10 +71,18 @@ export interface Task{
     comments?:Comment[];
     attachments?:Attachment[];
 }
+export interface User {
+    userId?: number;
+    username: string;
+    email: string;
+    profilePictureUrl?: string;
+    cognitoId?: string;
+    teamId?: number;
+  }
 export const api=createApi({
     baseQuery:fetchBaseQuery({baseUrl:process.env.NEXT_PUBLIC_API_BASE_URL}),
     reducerPath:"api",
-    tagTypes:["Projects","Tasks"],
+    tagTypes:["Projects","Tasks","Users"],
     endpoints:(builder)=>({
         getProjects:builder.query<Project[],void>({
             query:()=>`projects`,
@@ -101,7 +121,14 @@ export const api=createApi({
                 { type: "Tasks", id: taskId },
               ],
                     
-        })
+        }),
+        search: builder.query<SearchResults, string>({
+            query: (query) => `search?query=${query}`,
+          }),
+          getUsers: builder.query<User[], void>({
+            query: () => "users",
+            providesTags: ["Users"],
+          }),
     })
 });
-export const {useGetProjectsQuery,useCreateProjectMutation,useGetTasksQuery,useCreateTaskMutation,useUpdateTaskStatusMutation}=api;
+export const {useGetProjectsQuery,useCreateProjectMutation,useGetTasksQuery,useCreateTaskMutation,useUpdateTaskStatusMutation,useSearchQuery,useGetUsersQuery}=api;
