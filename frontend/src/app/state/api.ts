@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { create } from "domain";
+import _ from "lodash";
 
 export interface User{
    userId?:number;
@@ -35,6 +36,12 @@ export interface SearchResults {
     tasks?: Task[];
     projects?: Project[];
     users?: User[];
+  }
+  export interface Team {
+    teamId: number;
+    teamName: string;
+    productOwnerUserId?: number;
+    projectManagerUserId?: number;
   }
   
 export interface Project{
@@ -82,7 +89,7 @@ export interface User {
 export const api=createApi({
     baseQuery:fetchBaseQuery({baseUrl:process.env.NEXT_PUBLIC_API_BASE_URL}),
     reducerPath:"api",
-    tagTypes:["Projects","Tasks","Users"],
+    tagTypes:["Projects","Tasks","Users","Teams"],
     endpoints:(builder)=>({
         getProjects:builder.query<Project[],void>({
             query:()=>`projects`,
@@ -122,6 +129,17 @@ export const api=createApi({
               ],
                     
         }),
+        getTeams: builder.query<Team[], void>({
+            query: () => "teams",
+            providesTags: ["Teams"],
+          }),
+          getTasksByUser: builder.query<Task[], number>({
+            query: (userId) => `tasks/user/${userId}`,
+            providesTags: (result, error, userId) =>
+              result
+                ? result.map(({ id }) => ({ type: "Tasks", id }))
+                : [{ type: "Tasks", id: userId }],
+          }),
         search: builder.query<SearchResults, string>({
             query: (query) => `search?query=${query}`,
           }),
@@ -131,4 +149,4 @@ export const api=createApi({
           }),
     })
 });
-export const {useGetProjectsQuery,useCreateProjectMutation,useGetTasksQuery,useCreateTaskMutation,useUpdateTaskStatusMutation,useSearchQuery,useGetUsersQuery}=api;
+export const {useGetProjectsQuery,useCreateProjectMutation,useGetTasksQuery,useGetTasksByUserQuery,useGetTeamsQuery,useCreateTaskMutation,useUpdateTaskStatusMutation,useSearchQuery,useGetUsersQuery}=api;

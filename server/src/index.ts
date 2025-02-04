@@ -9,6 +9,7 @@ import projectRoutes from "./routes/projectRoutes"
 import taskRoutes from "./routes/taskRoutes"
 import searchRoutes from "./routes/searchRoutes"
 import userRoutes from "./routes/userRoutes"
+import teamRoutes from "./routes/teamRoutes"
 
 dotenv.config()
 const app=express();
@@ -27,7 +28,8 @@ app.use("/projects",projectRoutes)
 app.use("/tasks",taskRoutes)
 app.use("/search",searchRoutes)
 app.use("/users",userRoutes)
-const PORT = process.env.PORT || 5000
-app.listen(PORT, () => {
+app.use("/teams",teamRoutes)
+const PORT = Number(process.env.PORT) || 5000
+app.listen(PORT,"0.0.0.0",() => {
     console.log(`Server is running on port ${PORT}`)
 })
