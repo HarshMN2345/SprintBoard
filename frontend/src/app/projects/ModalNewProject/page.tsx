@@ -1,3 +1,4 @@
+"use client";
 import { useCreateProjectMutation } from "@/app/state/api";
 import { useState } from "react";
 import { formatISO } from "date-fns";
