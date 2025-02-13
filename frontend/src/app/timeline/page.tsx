@@ -1,7 +1,7 @@
 "use client"
 
 import { useAppSelector } from "@/app/redux";
-import { useGetProjectsQuery, useGetTasksQuery } from "@/app/state/api";
+import { useGetProjectsQuery } from "@/app/state/api";
 import { useState } from "react";
 import { DisplayOption, Gantt, ViewMode } from "gantt-task-react";
 import "gantt-task-react/dist/index.css";
