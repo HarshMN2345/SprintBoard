@@ -6,45 +6,40 @@ import BoardView from '../BoardView/page';
 import ListView from '../ListView/page';
 import Timeline from '../TimelineView/page';
 import TableView from '../TableView/page';
-import { Modal } from '@mui/material';
 import ModalNewTask from '@/components/ModelNewTask/page';
 
 
 type Props = {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 };
 
 const Project = ({ params }: Props) => {
-  const [id, setId] = useState<string | null>(null);
+  const { id } = params;
   const [activeTab, setActiveTab] = useState("Board");
   const [isModalNewTaskOpen, setIsModalNewTaskOpen] = useState(false);
 
-  useEffect(() => {
-    params.then((resolvedParams) => {
-      setId(resolvedParams.id);
-    });
-  }, [params]);
-
   return (
     <div>
-       <ModalNewTask isOpen={isModalNewTaskOpen} onClose={() => setIsModalNewTaskOpen(false)} id={id} />
-      <ProjectHeader activeTab={activeTab} setActiveTab={setActiveTab}/>
-      {activeTab === "Board" && id && (
+      <ModalNewTask
+        isOpen={isModalNewTaskOpen}
+        onClose={() => setIsModalNewTaskOpen(false)}
+        id={id}
+      />
+      <ProjectHeader activeTab={activeTab} setActiveTab={setActiveTab} />
+      {activeTab === "Board" && (
         <BoardView id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
       )}
-      {activeTab === "List" && id && (
+      {activeTab === "List" && (
         <ListView id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
-        )}
-      {activeTab === "Timeline" && id && (
+      )}
+      {activeTab === "Timeline" && (
         <Timeline id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
-        )}
-      {activeTab === "Table" && id && (
+      )}
+      {activeTab === "Table" && (
         <TableView id={id} setIsModalNewTaskOpen={setIsModalNewTaskOpen} />
       )}
-      
     </div>
   );
 };
 
 export default Project;
-
