@@ -10,7 +10,7 @@ import TaskCard from "@/components/TaskCard/page";
 import Header from "@/components/Header/page";
 
 type Props = {
-  priority: Priority;
+  priority: keyof typeof Priority;
 };
 
 const columns: GridColDef[] = [
