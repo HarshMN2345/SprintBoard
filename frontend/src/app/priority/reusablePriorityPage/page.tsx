@@ -2,11 +2,7 @@
 
 import { useAppSelector } from "@/app/redux";
 import { dataGridClassNames, dataGridSxStyles } from "@/lib/utils";
-import {
-  Priority,
-  Task,
-  useGetTasksByUserQuery,
-} from "@/app/state/api";
+import { Priority, Task, useGetTasksByUserQuery } from "../../state/api";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import React, { useState } from "react";
 import ModalNewTask from "@/components/ModelNewTask/page";
@@ -72,7 +68,7 @@ const columns: GridColDef[] = [
   },
 ];
 
-const ReusablePriorityPage = ({ priority }: Props) => {
+const ReusablePriorityPage: React.FC<Props> = ({ priority }) => {
   const [view, setView] = useState("list");
   const [isModalNewTaskOpen, setIsModalNewTaskOpen] = useState(false);
 
