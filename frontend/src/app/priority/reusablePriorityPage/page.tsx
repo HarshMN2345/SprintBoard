@@ -2,7 +2,7 @@
 
 import { useAppSelector } from "@/app/redux";
 import { dataGridClassNames, dataGridSxStyles } from "@/lib/utils";
-import { Priority, Task, useGetTasksByUserQuery } from "../../state/api";
+import { Task, useGetTasksByUserQuery } from "../../state/api";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import React, { useState } from "react";
 import ModalNewTask from "@/components/ModelNewTask/page";
