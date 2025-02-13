@@ -1,6 +1,8 @@
 "use client";
 import { useAppSelector } from "@/app/redux";
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useGetTasksQuery } from "@/app/state/api";
+/* eslint-enable @typescript-eslint/no-unused-vars */
 import { useState } from "react";
 import { DisplayOption, Gantt, ViewMode } from "gantt-task-react";
 import "gantt-task-react/dist/index.css";
@@ -96,4 +98,3 @@ type Props = {
   };
   
   export default Timeline;
-  
