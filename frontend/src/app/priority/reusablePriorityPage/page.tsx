@@ -9,7 +9,7 @@ import ModalNewTask from "@/components/ModelNewTask/page";
 import TaskCard from "@/components/TaskCard/page";
 import Header from "@/components/Header/page";
 
-type Props = {
+interface Props = {
   priority: 'Urgent' | 'High' | 'Medium' | 'Low' | 'Backlog';
 };
 
