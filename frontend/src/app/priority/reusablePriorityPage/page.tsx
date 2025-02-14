@@ -10,7 +10,7 @@ import TaskCard from "@/components/TaskCard/page";
 import Header from "@/components/Header/page";
 
 interface Props = {
-  priority: 'Urgent' | 'High' | 'Medium' | 'Low' | 'Backlog';
+  priority: string;
 };
 
 const columns: GridColDef[] = [
